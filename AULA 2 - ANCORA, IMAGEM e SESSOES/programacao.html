@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Luna">
+    <title>SECITEX/progamacao</title>
+</head>
+
+<body>
+    <header>
+        <h1>SECITEX - SEMANA DE CIÊNCIAS, TECNOLOGIA E EXTENSÃO</h1>
+        <nav>
+            <ol>
+                <!-- a definição entre ul ou ol vai depender da finalidade de cada projeto, ou ainda seu contexto -->
+                <li><a href="programacao.html">PROGRAMAÇÃO</a></li>
+                <!-- ancora interno porque se refere a uma pagina do proprio site -->
+                <li><a href="inscricao.html">INSCRIÇÃO</a></li>
+                <li><a href="contato.html">CONTATO</a></li>
+            </ol>
+        </nav>
+    </header>
+    <main>
+        <!-- main: conteúdo da página -->
+        <!-- quando há páginas diferentes com conteúdos específicos se coloca o que é "exclusivo/específico" dentro do article. 
+         Atenção para os casos em que o conteúdo específico é o main todo -->
+        <article>
+            <h2>PROGAMAÇÃO</h2>
+            <table border 1>
+                <!-- A tabela é comum no campo da programação mas é necessário analisar se é a melhor opção de visualização -->
+                <!-- 
+                    CAPTON -título da tabela
+                    tr - table row - linha da tabela
+                    th - table head - célula de título
+                    td - table data - célula de dados
+                 -->
+                <tr>
+                    <th>Atividade</th>
+                    <th>Dia/Hora</th>
+                    <!-- Células do topo -->
+                </tr>
+                <tr>
+                    <td>Palestra de Nicole</td>
+                    <td>12/09 às 11h</td>
+                </tr>
+                <tr>
+                    <td>Palestra de Winnicius</td>
+                    <td>12/09 às 14h</td>
+                </tr>
+                <tr>
+                    <td>Palestra de Juliana Vianna</td>
+                    <td>12/09 às 17h</td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <!-- colspan - mescla colunas -->
+                        CÉLULAS MESCALADAS HORIZONTALMENTE
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">CÉLULAS MESLCADAS VERTICLAMENTE</td>
+                    <!-- rowspan - mescla linhas -->
+                    <td>Célula que sobrou</td>
+                </tr>
+                <tr>
+                    <td>Célula que sobrou</td>
+                </tr>
+            </table>
+        </article>
+        <aside>
+            <!-- recebe o conteudo relacionado da pagina especifica do article mas que nao compreende o conteudo principal -->
+             <p>CONTEÚDO RELACIONADO - OPCIONAL</p>
+        </aside>
+    </main>
+    <footer>
+        <address>
+            av. Senador Salgado Filho, 5478
+        </address>
+        <figure>
+            <a href="http://portal.ifrn.edu.br"><img
+                    src="Instituto_Federal_do_Rio_Grande_do_Norte_-_Marca_Vertical_2015.svg.png" width="200px"
+                    alt="marca do IF"></a>
+        </figure>
+        <nav>
+            <ul>
+                <li><a href="#">twitter</a></li>
+                <li><a href="#">instagram</a></li>
+            </ul>
+        </nav>
+        <p>Desenvolvido por Luna</p>
+    </footer>
+</body>
+
+</html>
