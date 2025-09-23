@@ -1,0 +1,42 @@
+main{
+    max-width: 70rem;
+    margin: 1rem auto;
+    /* auto permite que o main fique no centro */
+    display: grid;
+    gap:1; 
+    /* GAP: assim como no flex define o espaçamento entre áreas */
+
+    grid-template-columns: 1fr 2fr 1fr ; /*unidade fr=fração*/
+    /* a quantidade de valores deve ser igual a quantidade de colunas */
+    /* grid-template-colums= define a LARGURA da coluna */
+    /* unidade fr=fração*/
+    /* posso usar a unidade fr e outra unidades */
+    grid-template-rows: 10rem 10rem;
+    /* grid-template-rows= define a ALTURA das linhas, porém cuidado!!
+    porque a altura ficará LIMITADA! */
+    /* a quantidade de valores deve ser igual a quantidade de LINHAS */
+    grid-template-areas: 
+    "c b d"
+    "a a d"
+    /* matriz */
+    /* a variavel nao pode começar com numero e nem ter espaço ou caracteres especiais */
+    /* todas as variaveis devem estar na matriz */
+    ;
+}
+section{
+    border: 1px solid black;
+    padding: 1rem;
+    overflow: auto; /* possibilita a barra de rolagem*/
+}
+section.noticias{
+    grid-area: a /* a definição de area é feita utilizando a area de grid-area*/;
+}
+section.comemoracao{
+    grid-area: b;
+}
+section.organizadores{
+    grid-area:c
+}
+section.corrida{
+    grid-area: d;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atvgrid</title>
+    <!-- <link rel="stylesheet" href="atv.css"> -->
+    <style>
+        main{
+    display: grid;
+    grid-template-areas: 
+    "a b c"
+    "a b d"
+    "e e e"
+    ;
+    grid-template-columns: 1fr, 2 fr, 1fr;
+    grid-template-rows:10rem 10rem 10rem;
+    margin:auto 10rem
+}
+section{
+    border: 2px, solid, black;
+    background-color: antiquewhite;
+    padding: 1rem;
+}
+section.a{
+    grid-area: a;
+}
+section.b{
+    grid-area: b;
+}
+section.c{
+    grid-area: c;
+}
+section.d{
+    grid-area: d;
+}
+section.e{
+    grid-area:e;
+}
+    </style>
+</head>
+<body>
+    <main>
+        <section class='a'>
+            <h2>a</h2>
+        </section>
+        <section class='b'>
+            <h2>b</h2>
+        </section>
+        <section class='c'>
+            <h2>c</h2>
+        </section>
+        <section class='d'>
+            <h2>d</h2>
+        </section>
+        <section class='e'>
+            <h2>e</h2>
+        </section>
+    </main>
+</body>
+</html>

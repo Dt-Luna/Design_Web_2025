@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-basis</title>
+    <style>
+        section {
+            border: 1px solid black;
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            gap: 1%;
+            /*gap: muda a distãncia*/
+            flex-wrap: wrap;
+            /*flex-wrap: quebra*/
+        }
+
+        section>h2 {
+            flex-basis: 100%;
+            /*Define a largura do item do display-flex / filho*/
+            padding: 1%;
+            background-color: rgb(209, 209, 209);
+        }
+
+        section>div {
+            background-color: rgb(235, 235, 235);
+            padding: 1%;
+            flex-basis: 30.6666666%;
+        }
+
+        div.card-50 {
+            flex-basis: 47.5%;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2>NOTÍCIA</h2>
+        <!--H1 pode ser suprimido, mas a lógica é que todo texto tenha H1-->
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <h2>NOTÍCIA</h2>
+        <div class="card-50">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <div class="card-50">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <h2>NOTÍCIA</h2>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, explicabo, optio ducimus
+                reprehenderit ex iusto hic quis quia vero quaerat voluptatum repellat eum reiciendis corporis suscipit
+                quas neque eveniet odit!</p>
+        </div>
+    </section>
+</body>
+
+</html>

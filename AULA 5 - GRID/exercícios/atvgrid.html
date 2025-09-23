@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atvgrid</title>
+    <!-- <link rel="stylesheet" href="atv.css"> -->
+    <style>
+        main{
+    display: grid;
+    grid-template-areas: 
+    "a b c"
+    "a b d"
+    "e e e"
+    ;
+    grid-template-columns: 1fr, 2 fr, 1fr;
+    grid-template-rows:10rem 10rem 10rem;
+    margin:auto 10rem
+}
+section{
+    border: 2px, solid, black;
+    background-color: antiquewhite;
+    padding: 1rem;
+}
+section.noticias{
+    grid-area: a;
+}
+section.comemoracoes{
+    grid-area: b;
+}
+section.organizadores{
+    grid-area: c;
+}
+section.corrida{
+    grid-area: d;
+}
+section.horarios{
+    grid-area:e;
+}
+    </style>
+</head>
+<body>
+    <main>
+        <section class='noticias'>
+            <h2>NOTÍCIAS</h2>
+        </section>
+        <section class='comemoracoes'>
+            <h2>COMEMORAÇÕES</h2>
+        </section>
+        <section class='organizadores'>
+            <h2>ORGANIZADORES</h2>
+        </section>
+        <section class='corrida'>
+            <h2>CORRIDA</h2>
+        </section>
+        <section class='horarios'>
+            <h2>HORARIOS</h2>
+        </section>
+    </main>
+</body>
+</html>

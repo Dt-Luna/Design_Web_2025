@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>align-items</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            /*Na largura vertical é usado o display-flex*/
+            height: 100vh;
+            /*Heith-viewport - altura disponível no dispositivo - RESPONSIVIDADE*/
+            /*Body só vai ter altura enquanto há texto*/
+            justify-content: center;
+            /*Equivale ao alinhamento horizontal*/
+            align-items: center;
+            /*Equivale ao alinhamento vertical*/
+            /*O body precisa ter altura 100% para poder usar o align-items*/
+        }
+
+        section {
+            border: 1px solid black;
+            padding: 2rem;
+            border-radius: 2rem;
+            width: 20rem;
+            height: 20rem;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>LOGIN</h1>
+        <form action="">
+            form de login...
+        </form>
+    </section>
+</body>
+
+</html>

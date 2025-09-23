@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>order</title>
+    <style>
+        body {
+            display: flex;
+        }
+
+        section {
+            border: 1px solid black;
+            border-radius: 2rem;
+            padding: 2rem;
+        }
+        /*Para utilizar o atributo de order é preciso defini-lo em todas as sections*/
+
+        /*1 5 4 3 0 2*/
+        section.not-5 {
+            order: 1; /*Define a ordem do filho dentro do conteiner*/
+        }
+
+        section.not-1 {
+            order: 0;
+        }
+        
+        section.not-2 {
+            order: 5;
+        }
+
+        section.not-3 {
+            order: 3;
+        }
+
+        section.not-4 {
+            order: 2;
+        }
+
+        section.not-0 {
+            order: 4;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <section class="not-0">
+        <h2>NOTÍCIA 0</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+    <section class="not-1">
+        <h2>NOTÍCIA 1</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+    <section class="not-2">
+        <h2>NOTÍCIA 2</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+    <section class="not-3">
+        <h2>NOTÍCIA 3</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+    <section class="not-4">
+        <h2>NOTÍCIA 4</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+    <section class="not-5">
+        <h2>NOTÍCIA 5</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur vitae facere neque dolores nisi
+            laudantium voluptatem fuga. Dignissimos nulla porro repellat, ut sed fugiat eos beatae animi corrupti
+            incidunt cumque.</p>
+    </section>
+</body>
+
+</html>
