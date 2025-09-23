@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header, footer{
+    /* a virgula representa um agrupamento de seletores */
+    background-color: lightblue;
+    padding: 1rem;
+    text-align: center;
+}
+main{
+    display: flex; 
+    /* permite que os elementos de section's fiquem um do lado do outro */
+    justify-content: space-evenly;
+    /* 
+    between - espaçamento igual sem margem
+    around - igual ao redor, no meio da impressao de ter o dobro
+    evenly - com margem e espaçamento igual
+    start - tudo na esquerda
+    end - tudo na direita
+    */
+    gap: 1rem;
+    /* espaço entre eles, é similar ao margin, mas é mais indicado para configurações com flex */
+    flex-wrap: wrap;
+}
+main > section{
+    /* o caractere '>' seleciona o elemento diretamente filho
+    <main>
+        <section> -> elemnto selecionado
+        -- caso tenha section's no parentesco "neto" elas não serão selecionadas
+    */
+
+    width: 20rem;
+    padding: 1rem;
+    border: 1px solid gray;
+    /* 3 valores - espessura estilo cor */
+    border-radius: 1rem;
+    /* bordas arredondadas */
+    box-shadow: 0 0 0.3rem 0.3rem rgb(190, 190, 190);
+    /* aplica sombra
+        eixo x, eixo y, tamanho, dispersão */
+    margin: 1rem 0;
+}
+main > section > h2>{
+    float:left
+}
+
+figure{
+    margin: 0;
+    padding: 0;
+}

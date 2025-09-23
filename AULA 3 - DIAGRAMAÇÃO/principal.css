@@ -1,0 +1,26 @@
+/* diagramação tmb é no css */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+figure {
+    float: left;
+    /* é um atributo que permite flutuar o elemento para o lado direito ou o lado esquerdo */
+}
+
+div.outrospercursos {
+    float: left;
+    border: 2px solid;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+footer {
+    background-color: darkseagreen;
+    padding: 1rem;
+    text-align: center;
+    clear: left;
+    /* o atributo de clear é "casado" com o atributo de float, ele limpa os elementos de float */
+    /* ele vai ficar abaixo de qualquer elemento com float */
+}
