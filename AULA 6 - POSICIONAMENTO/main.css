@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0
+}
+header, footer, section{
+    padding: 2rem;
+    background-color: lightcyan;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.7rem;
+    margin-bottom: 2rem;
+}
+/* css trabalha com cascata, então primeiro ele define background como lightcyan e dps vai pra lightskyblue */
+header, footer{
+    background-color: lightskyblue;
+    text-align: center;
+}
+main{
+    margin-top: 7rem;
+}
+header{
+    position: fixed;
+    /* posicionar o elemento sobre a página, ativa o EIXO Z - 
+    SOBREPOE os elementos da página
+    Em relação ao comportamento de estilo, o elemento deixa de ser display: block para
+    ser display: inline-block, isto é, perde a largura  */
+    width: 100vw; /*view-port width = largura do dispositivo*/
+    top: 0;
+    /* COORDENADAS - escolher no mínimo uma e no máximo 2, uma para o eixo x e outra para 
+    o eixo y
+        top, left, bottom, right
+    */
+    z-index: 1;
+}
+div#esmaecer{
+    width:100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    /*
+    a função rgba()
+    - recebe 4 parametros
+    - as cores devem ser de 0 a 255
+    - o alpha de 0 a 1
+    */
+    position:fixed;
+    top:0;
+    left: 0;
+    z-index: 2;
+
+    /* PARA FICAR NO CENTRO */
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+div#modal{
+    background-color: aqua;
+    padding: 2rem;
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    /* 
+    - não se trabalha com largura/altura min, max...
+    - é importante colocar largura e altura por causa do position
+    */
+    z-index: 3;
+    box-shadow: 5px 5px 15px black;
+    border-radius: 30px;
+}
+/* h2{
+    background-color: turquoise;
+    position: relative;
+    top: 10px;
+} */
