@@ -1,0 +1,13 @@
+li{
+    list-style-type: none;
+}
+
+ol > li{
+
+}
+
+ol > li > a{
+    text-decoration: none;
+    padding: 1rem;
+    border: 1px black solid;
+}

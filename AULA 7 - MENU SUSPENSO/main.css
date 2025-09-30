@@ -1,0 +1,32 @@
+
+li{
+    list-style-type: none;
+}
+ol > li{
+    display: inline;
+    position:relative;
+    /* na maioiria das vezes o relative trabalha com um pai que tem um filho de position: absolute */
+}
+ol > li > a{
+    /* o ancora é formatado para ocupar um área maior assim melhorando a usabilidade */
+    display: inline-block;
+    padding: 1rem;
+    color: darkcyan;
+    background-color: gainsboro;
+    text-decoration: none;
+}
+li > ul{
+    position: absolute;
+    padding: 1rem;
+    background-color: gainsboro;
+    visibility: hidden;
+    top:20px;
+    left: 0;
+    /* na coordenada é que ele relaciona as duas coisas */
+    /* atributo que esconde o submenu */
+    /* se fosse ol precisaria de class, mas nesse caso os itens do submenu não possuem uma ordem especifica */
+}
+ol > li:hover ul{
+    visibility: visible;
+    /* ao passar o mouse sobre o li que esta no ol formata-se o ul*/
+}
