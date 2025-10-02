@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição para a aula de campo</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+
+<body>
+    <h1>
+        Inscrição para a aula de campo
+    </h1>
+    <form action ='dadosenviados.html'>
+        <!-- o atributo de action deverá receber o arquivo de programação que processará os dados -->
+        <label for="nome">*Nome:</label>
+        <input type="text" id="nome" placeholder="Nome" required> <br>
+        <!-- placeholder é tipo uma label -->
+         <!-- required significa que é um campo obrigatório -->
+        <label for="email">E-mail</label>
+        <input type="email" name='email' id="email"> <br>
+        <!-- precisa haver um "casamento" entre o for da label e o id do input, mas se o input estive dentro da label não é necessário -->
+        <label for="curso">Curso:</label>
+        <select name="curso" id="curso">
+            <!-- multiple permite selecionar mais de -->
+            <!-- COMBOBOX
+             usado para quando o usuário tem muitas opções
+              -->
+            <option value="infoweb" selected>INFOWEB</option>
+            <!-- selected é a opção padrão/selecionada -->
+            <option value="adm">Administração</option>
+            <option value="msi">Manutenção e suporte</option>
+            <option value="cam">Controle Ambiental</option>
+            <option value="geo">Geologia</option>
+            <option value="mine">Mineração</option>
+            <option value="edi">Edificações</option>
+            <option value="mec">Mecânica</option>
+            <option value="elet">Eletro-técnica</option>
+        </select> <br>
+        <label><input type="radio" name="dir" value="diatinf">DIATINF</label>
+        <label><input type="radio" name="dir" value="diaren">DIAREN</label>
+        <label><input type="radio" name="dir" value="diacin">DIACIN</label>
+        <label><input type="radio" name="dir" value="diacon">DIACON</label>
+        <label><input type="radio" name="dir" checked value="diaren">DIAC</label>
+        <!-- 
+        quando se usa o componente radio ou checkbox 
+        o valor do name TEM QUE SER o mesmo!
+        -->
+        <br>
+
+        <label><input type="radio" name="turno" value="mat">Matutino</label>
+        <label><input type="radio" name="turno" value="vesp">Verspertino</label>
+        
+        <br>
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" list="cidade-list"> <br>
+        <datalist id="cidade-list">
+            <option value="Natal">
+            <option value="Parnamirim">
+            <option value="Macaíba">
+            <option value="Tibau">
+        </datalist>
+        <label for="obs">Observações:</label>
+        <textarea name="obs" id="obs" maxlength="" cols="30" rows="10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam optio eaque itaque sit sequi autem possimus voluptatem consequatur, nihil qui eveniet tempore soluta voluptatum! Impedit provident molestias dolor corrupti adipisci.</textarea>
+        <!-- maxlenght é max de caracteres -->
+        <!-- texarea é um campo que permite texto com parágrafos -->
+        <input type="submit" value="ENVIAR">
+        <!-- <button type="submit">ENVIAR</button> -->
+
+
+    </form>
+</body>
+
+</html>
