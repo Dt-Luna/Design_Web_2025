@@ -139,10 +139,12 @@ section.organizadores{
     grid-area:organizadores;
 }
 p.legenda{
-    position:absolute;
+    position:sticky;
     z-index: 2;
     vertical-align: center;
     background-color:rgba(0,0,0, 0.5);
-    color:black
+    color:black;
+    top:0;
+    left:0;
 
 }

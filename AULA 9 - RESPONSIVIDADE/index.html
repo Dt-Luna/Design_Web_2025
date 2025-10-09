@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- a tag de viewport vai melhorar a visualização da página no dispositivo -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <title>HALLOWEEN CNAT 2025</title>
+</head>
+<body>
+    <header>
+        <h1>HALLOWEEN CNAT 2025</h1>
+    </header>
+    <div>
+        <!-- marcação específica para responsividade de imagens 
+         o media é tipo um if
+         -->
+         <!-- 
+        1 - sobre o picture marcação de picture equivale à responsividade de imagens
+        2 - sobre o source: a marcação de source faz parte da sintaxe da tag de picture, as imagens possuem uma ordem decrescente de tamanho
+        3 - sobre a largura do source: a resolução precisa ser definida com base na resolução com a qual os usuários vão usar
+        4 - onde colocar o picture: a tag de picture pode ficar dentro de qualquer outra tag qe receba uma imagem
+         -->
+        <picture>
+            <source srcset="imagens/destaque_desktop.jpg" media="(min-width:1440px)">
+            <source srcset="imagens/destaque_tablet.jpg" media="(min-width:744px)">
+            <img src="imagens/destaque_mobile.jpg" alt="">
+        </picture>
+    </div>
+    <main>
+        <section>
+            <h2>Organizadores</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti hic debitis quaerat laborum distinctio voluptatem enim vitae eius sunt possimus saepe totam aspernatur voluptates necessitatibus quas eum, expedita obcaecati veritatis.</p>
+        </section>
+        <section>
+            <h2>Programação</h2>
+            <p>In temporibus porro voluptatibus numquam quod quibusdam odit nemo vitae veritatis necessitatibus! Quam optio cupiditate harum. Nam asperiores consequatur, nemo nostrum sint minima perspiciatis rerum ea. Delectus ipsum voluptate minus.</p>
+        </section>
+        <section>
+            <h2>Praça de alimentação</h2>
+            <p>Neque officia eaque magni. Deserunt nesciunt dicta modi praesentium ipsum repellat, sequi sed optio quisquam? Consequatur beatae illo aut enim! In fugiat sapiente assumenda a esse at vel delectus quas!</p>
+        </section>
+        <section>
+            <h2>Contato</h2>
+            <p>Voluptas vero reprehenderit in, quasi commodi distinctio dolorem accusamus deserunt possimus molestiae mollitia quisquam expedita. Explicabo ipsum cupiditate odio at, nulla quasi assumenda optio, porro nemo modi, provident blanditiis suscipit!</p>
+        </section>
+    </main>
+</body>
+</html>
