@@ -6,13 +6,13 @@ li{
     list-style-type: none;
 }
 figure{
-    width:200px;
-    height:200px;
+    width:300px;
+    height:300px;
     overflow:hidden;
 }
 img{
     filter:grayscale(100%);
-    height:200px
+    height:300px
 }
 h3{
     font-size: 2em;
@@ -69,7 +69,6 @@ section.cilium>a{
     border:1px solid #224459;
     text-decoration: none;
     color:#224459;
-    margin-top: 1em;
 }
 span.destaque{
     color: #224459;
@@ -82,7 +81,7 @@ section.organizacao{
     grid-area: organizacao;
 }
 section.larissa{
-    grid-area: larissa";
+    grid-area: larissa;
 }
 section.programacao{
     grid-area: programacao;
@@ -100,7 +99,6 @@ td{
     vertical-align: center;
     text-align: left;
 }
-
 section.inscricoes{
     grid-area:inscricoes;
     background-color: #ECECEC;
@@ -110,6 +108,8 @@ section.inscricoes>form{
     margin-top: 1em;
 }
 input[type=text]{
+    display: inline-block;
+    width: 40em;
     padding:1em;
     margin:10px 0
 }
@@ -124,16 +124,25 @@ input[type=submit]{
     display: block;
     margin: auto;
 }
-
 section.amanda{
     grid-area:amanda;
+    z-index:1;
+    position: relative;
 }
 section.natalia{
-    grid-area: natalia;
+    grid-area:natalia;
 }
 section.henrique{
     grid-area:henrique;
 }
 section.organizadores{
     grid-area:organizadores;
+}
+p.legenda{
+    position:absolute;
+    z-index: 2;
+    vertical-align: center;
+    background-color:rgba(0,0,0, 0.5);
+    color:black
+
 }
