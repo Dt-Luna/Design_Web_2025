@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+:root{
+    /* definição de variávies no elemento principal root/hrtml */
+    --princ-tx:blue;
+    --princ-bg:cadetblue;
+}
+body{
+    background-color: cadetblue;
+    font-family: "Limelight", sans-serif;
+}
+/* 
+SELETORES:
+* : {seleciona tudo}
+p.destaque: a tag p que tem o class destaque
+.destaque: qualquer tag que tenha a classe com valor igual a destaque
+#destaque: seleciona a marcação que tem o id igual a destaque
+section#destaque{ seleciona a marcação de section com id de destaque }
+ol, ul{ seleciona os dois }
+p a { seleciona todos as marcações de âncora dentro do 'p'}
+p > a { seleciona todas as marcações de âncoras FILHA DIRETAS do p
+header + section{ section logo depois do fechamento da tag de header no html }
+.tx-grande.verde{
+    seleciona a marcação que tem esses valores na class
+}
+.tx-grande .verde{ seleciona a marcação que tem a class .verde que está DENTRO da tag que tem a class .tx-grande
+
+p:hover { 'hover é uma subclasse - efeito de passar o mouse }
+li:first-child {seleciona o primeiro li}
+tr:nth-child(int ou odd ou even){
+    enésimo
+    even - filhos pares
+    odd - filhos ímpares
+}
+img[src='face.png']{ seleciona a imagem com esse exato url}
+input[type='submit']{ seleciona o input especificamente do tipo submit}
+input[type='radio'}{ seleciona o input especificamente do tipo radio}
+label[for]{ seleciona todas as tags de label com o atributo de for definido }
+*/
+header + section{
+    background-color: cornflowerblue;
+}
+tx-grande.verde{
+    color:crimson
+}
+
+section{
+    height: 20rem;
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    align-items: center;
+}
+section p{
+    animation-name: mostrar; /* nome da animação que é livre */
+    animation-duration: 1s; /* duração da animação */
+    animation-delay: 50ms;
+    animation-iteration-count: infinite; /* NÃO USAR PLMDS */
+}
+@keyframes mostrar{  /* ESTUDAR SOBRE MICROINTERAÇÕES */
+    0%{
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50%{
+        transform: translateX(0px);
+    }
+    75%{
+        transform: translateX(-50px)
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0px)
+    }
+}
+div{
+    background-color: aquamarine;
+    border-radius: 90rem;
+    padding: 5rem;
+    animation-name: elipse;
+    animation-duration: 5;
+    animation-delay: 5ms;
+    animation-iteration-count: infinite;
+}
+
+@keyframes elipse{
+    0%{
+        transform: translateX(-100px);
+    }
+    100%{
+        transform:translateX(0px);
+    }
+}
