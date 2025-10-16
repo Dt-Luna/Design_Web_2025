@@ -1,0 +1,43 @@
+/* a diferença principal entre transição e animação se dá na interação do usuário */
+body{
+    background-color: antiquewhite !important;
+    /* comando para definir prioridade a esse atributo */
+    /* deve ser aplicado dento da linha do valor */
+    /* de maneira geral é uma gambiarra, mas é comumente utilizado quando se trabalha com construtores como wordpress e bootstrat que possuem uma formatação css própria */
+    background-color: aqua;
+}
+main{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+div{
+    padding: 2rem;
+    border: 1px solid black;
+    font-size: 3rem;
+    text-align: center;
+    filter: blur(5px);
+    transition-property: all;
+    /* transition
+    concatena os atributos de transition-property e transition duration */
+    /* o atributo de transition define um efeito de transição para o hoover*/
+    /* define qual propriedade você quer que aplique a transição */
+    transition-duration: 0.2s;
+    /* define o tempo da transição */
+    /* transition-behavior: 
+    define o comportamento da transição
+     */
+}
+div:hover{
+    filter: blur(0);
+    border-radius: 2rem;
+    box-shadow: 0 0 20px gray;
+}
+input{
+    transition-property: all;
+    transition-duration: 0.2s;
+}
+input:focus{
+    /*  */
+    background-color: aliceblue;
+}
