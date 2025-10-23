@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --corcreme:#D8D4CB;
+            --azulescuro: #08254F;
+        }
+        *{
+            /* o seletor de * vai selecionar todas as marcações */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* body{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-direction: column;
+        } */
+
+        section{
+            padding: 2rem;
+        }
+        section:first-child{
+            background-color: var(--corcreme);
+            text-align:left;
+        }
+        section:nth-child(2){
+            display: flex;
+            gap: 2rem;
+            padding: 0;
+            flex-wrap: wrap;
+            background-color: aqua;
+            max-width: 70rem;
+            margin: auto;
+        }
+        section:nth-child(2) h2{
+            flex-basis: 100%;
+            /* width x flex-basis
+            flex-basis é mais prático e responsivo
+             */
+        }
+        section:nth-child(2) div{
+            color: white;
+            background-color: var(--azulescuro);
+            text-align: center;
+            padding: 2rem;
+            width:10rem;
+            box-sizing: border-box;
+            /* não altera as dimensões do elemento ao colocar o padding */
+            position: relative;
+            top: -2rem;
+            /* o atributo de top, left rigth bottom so funciona com atributo de position */
+            flex-basis: 31.4222% 
+        }
+        section:nth-child(2) div h3{
+            margin-bottom: 2rem;
+        }
+        section:nth-child(3){
+            max-width: 70rem;
+            /* largura máxima facilita a aplicação responsiva */
+            border: 1px solid black;
+            margin: 0 auto;
+            /* 0 para cima e baixo, auto para esquerda e direita. O margin só vai funcionar se for definida largura */
+            /* o margin e width trabalham juntos */
+        }
+
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>Só porque toda página tem que ter</h1>
+        <!-- tem que ter, PORÉM só pode ter 1 -->
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic non repudiandae eveniet ipsa optio numquam amet
+            dicta laborum! Sit amet vero doloribus esse eaque rem? Eveniet id et velit placeat.</p>
+    </section>
+    <section>
+        <h2>QUALQUER COISA</h2>
+        <div>
+            <h3>Lorem Ipsum</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div>
+            <h3>Lorem Ipsum</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div>
+            <h3>Lorem Ipsum</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+    </section>
+    <section>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum dignissimos voluptates deserunt odio inventore laudantium ducimus asperiores non repudiandae labore a provident, id dolor nihil obcaecati. Impedit recusandae optio quia.</p>
+    </section>
+</body>
+
+</html>

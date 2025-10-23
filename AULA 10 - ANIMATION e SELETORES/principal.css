@@ -55,7 +55,7 @@ section p{
     animation-name: mostrar; /* nome da animação que é livre */
     animation-duration: 1s; /* duração da animação */
     animation-delay: 50ms;
-    animation-iteration-count: infinite; /* NÃO USAR PLMDS */
+    /* animation-iteration-count: infinite; NÃO USAR PLMDS */
 }
 @keyframes mostrar{  /* ESTUDAR SOBRE MICROINTERAÇÕES */
     0%{
@@ -78,9 +78,8 @@ div{
     border-radius: 90rem;
     padding: 5rem;
     animation-name: elipse;
-    animation-duration: 5;
+    animation-duration: 1s;
     animation-delay: 5ms;
-    animation-iteration-count: infinite;
 }
 
 @keyframes elipse{
