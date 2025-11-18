@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="botoes"></div>
+    <script>
+        for (let indexbtn = 1; indexbtn <= 100; indexbtn++) {
+            const btn = document.createElement('button')
+            btn.addEventListener('click', function(e){
+                cor = btn.style.backgroundColor
+                window.document.body.style.backgroundColor = cor
+            })
+            document.getElementById('botoes').appendChild(btn)
+        }
+        const botoes = document.querySelectorAll('button')
+        botoes.forEach(btn => {
+            const r = Math.random() * 255;
+            const g = Math.random() * 255;
+            const b = Math.random() * 255;
+
+            btn.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+        })
+    </script>
+    <style>
+        button {
+            padding: 2rem;
+            border-radius: 90px;
+            border: none;
+        }
+    </style>
+</body>
+
+</html>
