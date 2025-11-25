@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNÇÕES NATIVAS</title>
+</head>
+
+<body>
+    <script>
+        let nome = "INFOWEB"
+
+        console.log("Comprimento da string: " + nome.length);
+        console.log("Posição do caracter da string: " + nome.charAt(0));
+        console.log("Substituir string: " + nome.replace("INFO", "INFORMÁTICA PARA INTERNET"));
+        console.log("Pegar uma substring da string: " + nome.substr(4, 3))
+        console.log("Divide a string: " + nome.split("O")[0]);
+        // pode receber str ou numero e retorna um array
+        console.log("Coloca em minúsculas " + nome.toLowerCase());
+        console.log("Coloca em maiúsculas: " + nome.toUpperCase())
+
+        nome = "           INFOWEB                 "
+        console.log(nome)
+        console.log("Remove os espaços laterais da string: " + nome.trim());
+        console.log("Juntar string: " + nome.trim().concat("  IFRN"));
+
+        // FUNÇÕES NATIVAS DE MATEMÁTICA
+
+        console.log("Valor de pi:" + Math.PI);
+        let num = 54.6;
+
+        console.log("Arredondamento para cima: " + Math.ceil(num));
+        console.log("Arredondamento para bixo" + Math.floor(num));
+        console.log("Arredondamento padrao: " + Math.round(num));
+        console.log("Numero aleatorio " + Math.random());
+        console.log("Numero aleatorio " + Math.random() * 5); //entre 0 e 5
+        console.log("Retorna o menor numero " + Math.min(54, 74, 65, 23, 67, 87, 12, 78, 45));
+        console.log("Retorna o menor numero " + Math.max(54, 74, 65, 23, 67, 87, 12, 78, 45));
+        console.log("Potencia: " + Math.pow(2, 4));
+        console.log("Raiz quadrada " + Math.sqrt(9));
+
+        /* F Nativa de Datas */
+
+        const data = new Date();
+
+        console.log("Dia de hoje " + data.getDate());
+        console.log("Mês: " + (data.getMonth()+1))
+        console.log("Ano: " + (data.getFullYear()))
+
+        // mostrar o dia assim: 25 de nov de 2025
+
+        let date = `${data.getDate()} de `
+        
+    </script>
+</body>
+
+</html>
