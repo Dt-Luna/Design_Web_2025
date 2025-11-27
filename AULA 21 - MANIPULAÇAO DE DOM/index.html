@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANIPULAÇÃO DE DOM</title>
+</head>
+
+<body>
+    <style>
+        .destaque {
+            background-color: aquamarine;
+            font-size: 2rem;
+        }
+    </style>
+    <p id="paragrafocomid">DOM - MODELO DE OBJETO DE DOCUMENTOS</p>
+    <span>SPAN1</span>
+    <p class="paragrafocomclass">DOM - MODELO DE OBJETO DE DOCUMENTO <span>SPAN2</span></p>
+
+    <ol quantidade="8" data-produtos="10">
+        <!-- atributos personalizados - existe um prefixo que é usado para atributos personalizados "data-"
+         pode receber qualquer valor -->
+
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+
+
+        <figure>
+            <img src="thukuna.jpg" width="800px" alt="GUGUGAGA">
+        </figure>
+        <button class="trocarimagem">TROCAR IMAGEM</button>
+    </ol>
+    <!-- o script DEVE SER EXTERNO <script src="nomedoarquivo.js"></script>-->
+    <script>
+        /*
+        MANIPULAÇÃO DE DOM
+        */
+        const pcomid = document.getElementById('paragrafocomid');
+        const pcomclass = document.querySelector(".paragrafocomclass span");
+        pcomclass.innerHTML = "<b>NOVO<b> texto para o span"
+
+        document.querySelector(".paragrafocomclass").classList.add("destaque")
+        // adiciona o valor 'destaque' ao atributo class
+        // o atributo class pode receber vários valores, diferente do 'id'
+
+        document.getElementsByTagName("li")[1].style.color = "green";
+        console.log(document.getElementsByTagName("li").length)
+
+        const imagem = document.querySelector("img");
+        console.log(imagem.getAttribute("src"))
+        console.log(imagem.getAttribute("width"))
+        // .set.Atributte("src", "novovalor")
+        const trocarimagem = document.querySelector(".trocarimagem")
+        function trocar() {
+            if (imagem.getAttribute("src") === 'thukuna.jpg') {
+                imagem.setAttribute("src", "gojo.jpg");
+            } else {
+                imagem.setAttribute("src", "thukuna.jpg");
+            }
+        }
+        trocarimagem.addEventListener('click', trocar)
+
+        const lista = document.querySelector("ol")
+        console.log(lista.getAttribute("quantidade"));
+        console.log(lista.hasAttribute("quantidade"));
+        console.log(lista.removeAttribute("quantidade"));
+        console.log(lista.hasAttribute("quantidade"));
+
+        console.log(lista.dataset.produtos); // 
+        console.log(lista.attributes) // lista todos os atributos
+    </script>
+</body>
+
+</html>
