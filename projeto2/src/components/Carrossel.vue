@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import type { Swiper as SwiperClass } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Scrollbar, Mousewheel, FreeMode, Navigation } from 'swiper/modules'
 import 'swiper/css'
+import CardDestinos from './CardDestinos.vue'
 import 'swiper/css/scrollbar'
+import { t } from 'vue-router/dist/index-Cu9B0wDz.mjs'
 
 /* ---------- modules Swiper ---------- */
 const modules = [Scrollbar, Mousewheel, FreeMode, Navigation]
 
 /* ---------- props ---------- */
 const props = defineProps({
-  eventos: { type: Array, required: true },
+  destinos: { type: Array, required: true },
   component: { type: Object, required: true },
 })
 
 /* ---------- emits ---------- */
 const emit = defineEmits(['select'])
 /* ---------- device ---------- */
-const device = ref('desktop')
+type Device = 'desktop' | 'tablet' | 'mobile'
+const device = ref<Device>('desktop')
 
 function updateDevice() {
   const w = window.innerWidth
@@ -35,8 +39,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDevice)
 })
 
-/* ---------- variant ---------- */
-
+const totalPages = computed(() => {
+  const remaining = props.destinos.length - Math.floor(slidesPerView.value)
+  return Math.max(1, Math.ceil(remaining) + 1)
+})
 /* ---------- config central ---------- */
 const DEVICE_CONFIG = {
   desktop: {
@@ -51,7 +57,7 @@ const DEVICE_CONFIG = {
     slidesPerView: 2,
     spaceBetween: 12,
   },
-}
+} as const
 
 /* ---------- layout derivado ---------- */
 const layoutConfig = computed(() => DEVICE_CONFIG[device.value])
@@ -60,25 +66,23 @@ const spaceBetween = computed(() => layoutConfig.value.spaceBetween)
 
 /* ---------- índice de slides ---------- */
 const currentIndex = ref(0)
-const swiperInstance = ref(null)
+const swiperInstance = ref<SwiperClass | null>(null)
 
-function onSlideChange(swiper) {
+function onSlideChange(swiper: SwiperClass) {
   currentIndex.value = swiper.activeIndex
   swiperInstance.value = swiper
 }
 
-async function goToSlide(index) {
+async function goToSlide(index: number) {
   await nextTick()
   if (swiperInstance.value) {
     swiperInstance.value.slideTo(index, 500)
   }
 }
 
-/* ---------- calculado total de "páginas" visíveis ---------- */
-const totalPages = computed(() => {
-  const remaining = props.eventos.length - Math.floor(slidesPerView.value)
-  return Math.max(1, Math.ceil(remaining) + 1)
-})
+function onSwiper(swiper: SwiperClass) {
+  swiperInstance.value = swiper
+}
 
 /* ---------- Swiper config ---------- */
 const swiperConfig = computed(() => {
@@ -116,11 +120,11 @@ const swiperConfig = computed(() => {
         :grab-cursor="true"
         :mousewheel="{ forceToAxis: true }"
         :free-mode="{ enabled: true, momentum: true }"
-        @swiper="(swiper) => { swiperInstance = swiper }"
+        @swiper="onSwiper"
         @slide-change="onSlideChange"
         class="swiper"
       >
-        <swiper-slide v-for="(destino, i) in eventos" :key="i">
+        <swiper-slide v-for="(destino, i) in destinos" :key="i">
           <component
             :is="component"
             :destino="destino"
@@ -134,13 +138,13 @@ const swiperConfig = computed(() => {
     <!-- Scrollbar com índices clicáveis para ambos carrosséis -->
     <div class="carousel-scrollbar">
       <button
-        v-for="i in eventos.length"
+        v-for="i in totalPages"
         :key="i"
         class="scrollbar-index"
         :class="{ active: currentIndex === i - 1 }"
         @click="goToSlide(i - 1)"
         :aria-label="`Ir para card ${i}`"
-        :title="`Card ${i} de ${eventos.length}`"
+        :title="`Card ${i} de ${totalPages}`"
       />
     </div>
 
@@ -160,9 +164,9 @@ const swiperConfig = computed(() => {
 /* ===== VIEWPORT CONTAINER - Alinhado com margens da página ===== */
 .viewport-container {
   width: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: left;
+  /* max-width: 1440px; */
+  /* padding: 0 100px; */
+  box-sizing: border-box;
 }
 
 /* ===== SWIPER BASE ===== */
@@ -207,8 +211,8 @@ const swiperConfig = computed(() => {
 }
 
 .pagination-dot.active {
-  background-color: #0b513f;
-  border-color: #0b513f;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   box-shadow: 0 0 12px rgba(11, 81, 63, 0.4);
 }
 
@@ -245,7 +249,7 @@ const swiperConfig = computed(() => {
   min-height: 12px;
   padding: 0;
   border-radius: 50%;
-  border: 2px solid rgba(11, 81, 63, 0.4);
+  border: 2px solid var(--accent-color);
   background-color: rgba(11, 81, 63, 0.15);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -254,13 +258,13 @@ const swiperConfig = computed(() => {
 
 .scrollbar-index:hover {
   background-color: rgba(11, 81, 63, 0.3);
-  border-color: #0b513f;
+  border-color: var(--accent-color);
   transform: scale(1.2);
 }
 
 .scrollbar-index.active {
-  background-color: #0b513f;
-  border-color: #0b513f;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   box-shadow: 0 2px 8px rgba(11, 81, 63, 0.4);
   transform: scale(1.3);
 }
