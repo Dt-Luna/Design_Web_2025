@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Scrollbar, Mousewheel, FreeMode, Navigation } from 'swiper/modules'
@@ -10,9 +10,12 @@ const modules = [Scrollbar, Mousewheel, FreeMode, Navigation]
 
 /* ---------- props ---------- */
 const props = defineProps({
-  evento: { type: Array, required: true },
+  eventos: { type: Array, required: true },
   component: { type: Object, required: true },
 })
+
+/* ---------- emits ---------- */
+const emit = defineEmits(['select'])
 /* ---------- device ---------- */
 const device = ref('desktop')
 
@@ -33,27 +36,27 @@ onBeforeUnmount(() => {
 })
 
 /* ---------- variant ---------- */
-const variant = computed(() => (props.component === CardDestaque ? 'destaque' : 'inscricao'))
 
 /* ---------- config central ---------- */
 const DEVICE_CONFIG = {
   desktop: {
-    destaque: { slidesPerView: 4 },
-    inscricao: { slidesPerView: 3 },
+    slidesPerView: 4,
+    spaceBetween: 12,
   },
   tablet: {
-    destaque: { slidesPerView: 3 },
-    inscricao: { slidesPerView: 3 },
+    slidesPerView: 3,
+    spaceBetween: 12,
   },
   mobile: {
-    destaque: { slidesPerView: 2 },
-    inscricao: { slidesPerView: 1.5 },
+    slidesPerView: 2,
+    spaceBetween: 12,
   },
 }
 
 /* ---------- layout derivado ---------- */
-const layoutConfig = computed(() => DEVICE_CONFIG[device.value][variant.value])
+const layoutConfig = computed(() => DEVICE_CONFIG[device.value])
 const slidesPerView = computed(() => layoutConfig.value.slidesPerView)
+const spaceBetween = computed(() => layoutConfig.value.spaceBetween)
 
 /* ---------- índice de slides ---------- */
 const currentIndex = ref(0)
@@ -77,47 +80,26 @@ const totalPages = computed(() => {
   return Math.max(1, Math.ceil(remaining) + 1)
 })
 
-/* ---------- Swiper config por variante ---------- */
+/* ---------- Swiper config ---------- */
 const swiperConfig = computed(() => {
-  const baseConfig = {
+  return {
     modules,
-    spaceBetween: variant.value === 'destaque' ? 12 : 20,
+    spaceBetween: spaceBetween.value,
     loop: false,
     grabCursor: true,
     mousewheel: { forceToAxis: true },
+    freeMode: {
+      enabled: true,
+      momentum: true,
+      momentumRatio: 1,
+      momentumVelocityRatio: 1,
+      momentumBounce: true,
+      momentumBounceRatio: 1,
+    },
+    freeModeSticky: false,
     on: {
       slideChange: onSlideChange,
     },
-  }
-
-  if (variant.value === 'destaque') {
-    return {
-      ...baseConfig,
-      slidesPerView: slidesPerView.value,
-      freeMode: {
-        enabled: true,
-        momentum: true,
-        momentumRatio: 1,
-        momentumVelocityRatio: 1,
-        momentumBounce: true,
-        momentumBounceRatio: 1,
-      },
-      freeModeMomentum: true,
-      freeModeSticky: false,
-    }
-  } else {
-    // inscricao
-    return {
-      ...baseConfig,
-      slidesPerView: slidesPerView.value,
-      centeredSlides: true,
-      freeMode: {
-        enabled: true,
-        momentum: true,
-        momentumRatio: 1,
-        momentumVelocityRatio: 1,
-      },
-    }
   }
 })
 
@@ -129,26 +111,21 @@ const swiperConfig = computed(() => {
       <swiper
         :modules="modules"
         :slides-per-view="slidesPerView"
-        :space-between="variant === 'destaque' ? 12 : 20"
+        :space-between="spaceBetween"
         :loop="false"
         :grab-cursor="true"
         :mousewheel="{ forceToAxis: true }"
-        :free-mode-momentum="variant === 'destaque'"
-        :centered-slides="variant === 'inscricao'"
+        :free-mode="{ enabled: true, momentum: true }"
         @swiper="(swiper) => { swiperInstance = swiper }"
         @slide-change="onSlideChange"
-        :class="{
-          'swiper-destaque': variant === 'destaque',
-          'swiper-inscricao': variant === 'inscricao',
-        }"
+        class="swiper"
       >
-        <swiper-slide v-for="(evento, i) in eventos" :key="i">
+        <swiper-slide v-for="(destino, i) in eventos" :key="i">
           <component
             :is="component"
-            :evento="evento"
-            :class="{ 'card-focus': variant === 'inscricao' }"
+            :destino="destino"
             :style="{ cursor: 'pointer' }"
-            @click="emit('select', evento)"
+            @click="emit('select', destino)"
           />
         </swiper-slide>
       </swiper>
@@ -208,34 +185,10 @@ const swiperConfig = computed(() => {
   align-items: center;
 }
 
-/* ===== CARROSSEL DESTAQUE (Stories Style) ===== */
-.swiper-destaque {
+/* ===== CARROSSEL ===== */
+.swiper {
   width: 100%;
   box-sizing: border-box;
-}
-
-/* ===== CARROSSEL INSCRIÇÃO (Centered Focus) ===== */
-.swiper-inscricao {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Cards com foco central - escala e transição */
-:deep(.swiper-inscricao .swiper-slide) {
-  opacity: 0.7;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  transform: scale(0.95);
-}
-
-:deep(.swiper-inscricao .swiper-slide-active) {
-  opacity: 1;
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-:deep(.swiper-inscricao .swiper-slide-next) {
-  opacity: 0.85;
-  transform: scale(0.98);
 }
 
 /* ===== PAGINATION DOTS ===== */
@@ -297,7 +250,7 @@ const swiperConfig = computed(() => {
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
-}
+}    
 
 .scrollbar-index:hover {
   background-color: rgba(11, 81, 63, 0.3);

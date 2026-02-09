@@ -2,6 +2,7 @@
 import Header from '@/components/Header.vue';
 import TheWelcome from '../components/TheWelcome.vue'
 import CardDestinos from '@/components/CardDestinos.vue';
+import Carrossel from '@/components/Carrossel.vue'
 // import { C } from 'vue-router/dist/options-CjwwR_07.cjs';
 const destinos = [
   {
@@ -39,16 +40,15 @@ const destinos = [
   </header>
   <main>
     <h2>Destinos Populares</h2>
-    <CardDestinos v-for="destino in destinos" :key="destino.nome" :destino="destino" />
+    <Carrossel :component='CardDestinos' :destinos="destinos"/>
   </main>
 </template>
 <style scoped>
 main {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   gap: 3rem;
   max-width: 1440px;
   padding: 2rem 100px;
