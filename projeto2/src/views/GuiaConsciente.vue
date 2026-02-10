@@ -19,12 +19,6 @@ const dicasTurismo = [
   <div class="page">
     <header>
       <Header></Header>
-      <div class="banner-minimalista">
-        <div class="container">
-          <h1>Guia de Preservação</h1>
-          <p>Pequenas atitudes, grandes impactos na nossa biodiversidade.</p>
-        </div>
-      </div>
     </header>
 
     <main>
@@ -129,6 +123,12 @@ h2 {
 /* Grid de Dicas Diárias */
 .dicas-secao {
   margin: 80px 0;
+}
+
+.intro-texto p {
+  font-size: 1.1rem;
+  color: white;
+  margin-bottom: 40px;
 }
 
 .intro-texto {

@@ -5,13 +5,13 @@
     <header class="main-header">
         <div class="header-container">
             <RouterLink to="/" class="header-logo-container">
-                <!-- <img :src="logoImg" alt="Logo Eventos CNAT" class="header-logo" /> -->
+                <img src="@/assets/imagens/logoImg.png" alt="Logo Eventos CNAT" class="header-logo" />
             </RouterLink>
             <ul>
                 <li><RouterLink to="/quemsomos">Quem Somos</RouterLink></li>
                 <li><RouterLink to="/sejaumcolaborador">Seja um Colaborador</RouterLink></li>
                 <li><RouterLink to="/projetos">Projetos</RouterLink></li>
-                <li><RouterLink to="/destinos">Destinos</RouterLink></li>
+                <li><RouterLink to="/guiaconsciente">Guia Consciente</RouterLink></li>
             </ul>
         </div>
     </header>
@@ -36,6 +36,14 @@
     min-height: 100px;
     max-height: 100px;
     margin: 0 auto;
+}
+
+.header-logo {
+    height: 50px;
+    width: auto;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    padding: 10px;
 }
 
 nav {

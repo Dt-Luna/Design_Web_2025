@@ -1,21 +1,91 @@
 <script setup lang="ts">
-// import '@vuepic/vue-datepicker/dist/main.css'
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import Footer from '@/components/Footer.vue'
 
-const nome = ref('')
-const email = ref('')
-const telefone = ref('')
+interface Projeto {
+  id: string
+  nome: string
+  descricao: string
+  categoria: string
+  dataIniciao: string
+  dataConclusao: string
+}
 
-function enviarFormulario() {
-  const dados = {
-    nome: nome.value,
-    email: email.value,
-    telefone: telefone.value,
+const nome = ref('')
+const descricao = ref('')
+const categoria = ref('')
+const dataInicio = ref('')
+const dataConclusao = ref('')
+const projetos = ref<Projeto[]>([])
+
+const STORAGE_KEY = 'projetos_cadastrados'
+
+// Carrega projetos do localStorage ao montar o componente
+onMounted(() => {
+  carregarProjetos()
+})
+
+// Carrega projetos do localStorage
+function carregarProjetos() {
+  const dados = localStorage.getItem(STORAGE_KEY)
+  if (dados) {
+    try {
+      projetos.value = JSON.parse(dados)
+    } catch (e) {
+      console.error('Erro ao carregar projetos:', e)
+      projetos.value = []
+    }
+  }
+}
+
+// Salva projetos no localStorage
+function salvarProjetos() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(projetos.value))
+}
+
+// Adiciona novo projeto
+function adicionarProjeto() {
+  if (!nome.value || !descricao.value || !categoria.value) {
+    alert('Por favor preencha todos os campos obrigatórios')
+    return
   }
 
-  console.log('ENVIADO COM SUCESSO:', dados)
+  const novoProjeto: Projeto = {
+    id: Date.now().toString(),
+    nome: nome.value,
+    descricao: descricao.value,
+    categoria: categoria.value,
+    dataIniciao: dataInicio.value,
+    dataConclusao: dataConclusao.value,
+  }
+
+  projetos.value.push(novoProjeto)
+  salvarProjetos()
+
+  // Limpa formulário
+  nome.value = ''
+  descricao.value = ''
+  categoria.value = ''
+  dataInicio.value = ''
+  dataConclusao.value = ''
+
+  console.log('Projeto adicionado com sucesso!')
 }
+
+// Remove projeto
+function removerProjeto(id: string) {
+  projetos.value = projetos.value.filter((p) => p.id !== id)
+  salvarProjetos()
+}
+
+// Conta projetos por categoria
+const projetosPorCategoria = computed(() => {
+  const categorias: { [key: string]: number } = {}
+  projetos.value.forEach((p) => {
+    categorias[p.categoria] = (categorias[p.categoria] || 0) + 1
+  })
+  return categorias
+})
 </script>
 
 <template>
@@ -23,9 +93,120 @@ function enviarFormulario() {
     <headerAdm />
 
     <main class="main-content">
-      <h1>Adicionar Evento</h1>
+      <h1>Adicionar Projeto</h1>
+
+      <!-- Formulário -->
+      <section class="form-section">
+        <h2>Novo Projeto</h2>
+
+        <div class="form-group">
+          <label for="nome">Nome do Projeto *</label>
+          <input 
+            id="nome"
+            v-model="nome" 
+            type="text" 
+            placeholder="Digite o nome do projeto"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição *</label>
+          <textarea 
+            id="descricao"
+            v-model="descricao" 
+            placeholder="Digite a descrição do projeto"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria *</label>
+          <select id="categoria" v-model="categoria">
+            <option value="">Selecione uma categoria</option>
+            <option value="Educação">Educação</option>
+            <option value="Meio Ambiente">Meio Ambiente</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Social">Social</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+
+        <div class="datas-in-row">
+          <div class="form-group">
+            <label for="dataInicio">Data de Início</label>
+            <input 
+              id="dataInicio"
+              v-model="dataInicio" 
+              type="date"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="dataConclusao">Data de Conclusão</label>
+            <input 
+              id="dataConclusao"
+              v-model="dataConclusao" 
+              type="date"
+            />
+          </div>
+        </div>
+
+        <div class="submit-container">
+          <button class="submit-btn" @click="adicionarProjeto">
+            Adicionar Projeto
+          </button>
+        </div>
+      </section>
+
+      <!-- Estatísticas -->
+      <section v-if="projetos.length > 0" class="stats-section">
+        <h2>Estatísticas</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">{{ projetos.length }}</span>
+            <span class="stat-label">Projetos Cadastrados</span>
+          </div>
+          <div v-for="(count, categoria) in projetosPorCategoria" :key="categoria" class="stat-card">
+            <span class="stat-number">{{ count }}</span>
+            <span class="stat-label">{{ categoria }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lista de Projetos -->
+      <section v-if="projetos.length > 0" class="projetos-section">
+        <h2>Projetos Cadastrados</h2>
+        <div class="projetos-grid">
+          <div v-for="projeto in projetos" :key="projeto.id" class="projeto-card">
+            <div class="projeto-header">
+              <h3>{{ projeto.nome }}</h3>
+              <span class="categoria-badge">{{ projeto.categoria }}</span>
+            </div>
+            <p class="projeto-descricao">{{ projeto.descricao }}</p>
+            <div class="projeto-datas">
+              <span v-if="projeto.dataIniciao" class="data">
+                📅 Início: {{ projeto.dataIniciao }}
+              </span>
+              <span v-if="projeto.dataConclusao" class="data">
+                📅 Conclusão: {{ projeto.dataConclusao }}
+              </span>
+            </div>
+            <button class="remove-btn" @click="removerProjeto(projeto.id)">
+              Remover
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mensagem vazia -->
+      <section v-else class="empty-state">
+        <p>Nenhum projeto cadastrado ainda.</p>
+        <p>Adicione um novo projeto usando o formulário acima!</p>
+      </section>
     </main>
 
+    <Footer />
   </div>
 </template>
 
@@ -50,6 +231,7 @@ function enviarFormulario() {
 h1 {
   color: #0a4635;
 }
+
 .form-section {
   width: 100%;
   background: white;
@@ -58,248 +240,69 @@ h1 {
   box-shadow: 0 2px 8px #0002;
 }
 
-.form-section h2 {
+.form-section h2,
+.stats-section h2,
+.projetos-section h2 {
   margin-bottom: 20px;
   color: #1b473a;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 18px;
 }
 
-.datas-in-row {
-  display: flex;
-  flex-direction: row;
-  gap: 100px;
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1b473a;
 }
 
 .form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
 .form-group textarea {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-.cat-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-bottom: 10px;
+  resize: vertical;
+  min-height: 100px;
 }
 
-.cat-label {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #000;
-}
-
-.cat-icon-btn {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #f3f3f3;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-
+.form-group select {
   cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 1px 2px #0001;
+  background-color: white;
 }
 
-.cat-icon-btn:hover {
-  background: #e7e7e7;
-  border-color: #c9c9c9;
-  box-shadow: 0 2px 4px #0002;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0a8f5a;
+  box-shadow: 0 0 0 3px rgba(10, 143, 90, 0.1);
 }
 
-.arrow {
-  font-size: 25px;
-  color: #444;
-  font-weight: bold;
-  transform: translateY(-7px);
-}
-
-.cat-dropdown {
-  margin-top: 5px;
-  background: white;
-  border: 1px solid #b6e8d2;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px #0002;
-  padding: 8px;
+.datas-in-row {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 260px;
-}
-
-.cat-option {
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.cat-option:hover {
-  background: #d8f7ea;
-}
-
-.cat-tags {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-.cat-input {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-bottom: 8px;
-}
-
-.disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-.tag {
-  background: #c8f5de;
-  padding: 6px 12px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-}
-
-.remove-tag {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: #0a8f5a;
-}
-.remove-tag:hover {
-  color: red;
-}
-
-.date-time-row {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  width: 100%;
-}
-.lista-dias-container {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px 20px;
-  width: 100%;
-}
-
-.remove-day {
-  border: none;
-  color: #900;
-  background-color: rgb(252, 232, 232);
-  font-weight: bold;
-  border-radius: 15px;
-  padding: 4px 7px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.remove-day:hover {
-  color: #ff8080;
-}
-
-.dia-item {
-  background: #e6fff4;
-  border: 1px solid #ddf5e9;
-  padding: 12px 15px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
+  flex-direction: row;
   gap: 20px;
-
-  box-shadow: 0 2px 6px #0001;
 }
 
-.dia-label {
-  font-weight: 600;
-  color: #066245;
-  width: 120px;
-}
-
-.time-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fff;
-  min-width: 120px;
-}
-/*organizadores */
-.organizadores-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 10px;
-  width: 100%;
-}
-.organizador-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 15px;
-  border-radius: 10px;
-}
-
-.organizador-field input {
+.datas-in-row .form-group {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.remove-field {
-  background: #ffe5e5;
-  border: 1px solid #ffb3b3;
-  color: #a00;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.remove-field:hover {
-  background: #ffd2d2;
-  color: #700;
-}
-
-.add-field {
-  align-self: flex-start;
-  background: #c8f5de;
-  border: 1px solid #9bd9b9;
-  padding: 8px 16px;
-  border-radius: 8px;
-  color: #0b5c3e;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.add-field:hover {
-  background: #b2f0d1;
-  border-color: #89cdaa;
 }
 
 .submit-container {
   display: flex;
   justify-content: flex-end;
+  margin-top: 20px;
 }
+
 .submit-btn {
   background: #08472e;
   color: white;
@@ -308,6 +311,169 @@ h1 {
   font-size: 1rem;
   border: none;
   cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.submit-btn:hover {
+  background: #06351f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 71, 46, 0.3);
+}
+
+/* Estatísticas */
+.stats-section {
+  width: 100%;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #0a8f5a 0%, #066245 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(10, 143, 90, 0.2);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Projetos */
+.projetos-section {
+  width: 100%;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.projetos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.projeto-card {
+  background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.projeto-card:hover {
+  box-shadow: 0 4px 16px rgba(10, 143, 90, 0.15);
+  transform: translateY(-4px);
+}
+
+.projeto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.projeto-card h3 {
+  color: #1b473a;
+  margin: 0;
+  flex: 1;
+}
+
+.categoria-badge {
+  background: #c8f5de;
+  color: #0a8f5a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.projeto-descricao {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 12px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.projeto-datas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.projeto-datas .data {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.remove-btn {
+  width: 100%;
+  background: #ffe5e5;
+  border: 1px solid #ffb3b3;
+  color: #a00;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.remove-btn:hover {
+  background: #ffd2d2;
+  color: #700;
+}
+
+/* Estado Vazio */
+.empty-state {
+  width: 100%;
+  background: white;
+  padding: 60px 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+  text-align: center;
+  color: #999;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.empty-state p:first-child {
+  color: #666;
+  font-weight: 600;
 }
 
 footer {
@@ -385,11 +551,13 @@ footer {
   width: 100%;
   opacity: 0.85;
 }
+
 fieldset {
   border: none;
   padding: 0;
   margin: 0;
 }
+
 legend {
   font-weight: 600;
   margin-bottom: 16px;
@@ -406,6 +574,15 @@ main section:last-child {
     flex-direction: column;
     gap: 10px;
   }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projetos-grid {
+    grid-template-columns: 1fr;
+  }
+
   header ul {
     display: none;
   }
