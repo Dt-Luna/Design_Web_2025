@@ -19,9 +19,24 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/projetos',
+      name: 'projetos',
+      component: () => import('../views/Projetos.vue'),
+    },
+    {
       path: '/cadastro',
       name: 'cadastro',
       component: Cadastro,
+    },
+    {
+      path: '/quemsomos',
+      name: 'quemsomos',
+      component: () => import('../views/QuemSomos.vue'),
+    },
+    {
+      path: '/guiaconsciente',
+      name: 'guiaconsciente',
+      component: () => import('../views/GuiaConsciente.vue'),
     }
   ],
 })

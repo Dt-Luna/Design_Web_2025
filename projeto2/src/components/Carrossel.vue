@@ -46,15 +46,15 @@ const totalPages = computed(() => {
 /* ---------- config central ---------- */
 const DEVICE_CONFIG = {
   desktop: {
-    slidesPerView: 4,
-    spaceBetween: 12,
+    slidesPerView: 3,
+    spaceBetween: 8,
   },
   tablet: {
-    slidesPerView: 3,
+    slidesPerView: 2,
     spaceBetween: 12,
   },
   mobile: {
-    slidesPerView: 2,
+    slidesPerView: 1,
     spaceBetween: 12,
   },
 } as const
@@ -164,9 +164,10 @@ const swiperConfig = computed(() => {
 /* ===== VIEWPORT CONTAINER - Alinhado com margens da página ===== */
 .viewport-container {
   width: 100%;
-  /* max-width: 1440px; */
+  max-width: 1440px;
   /* padding: 0 100px; */
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* ===== SWIPER BASE ===== */

@@ -20,7 +20,7 @@
 .main-header {
     background-image: url('@/assets/imagens/header_background1.svg');
     background-position: center;
-    max-width: 100%;
+    width: 100%;
     min-height: 100px;
     max-height: 100px;
     overflow: hidden;
