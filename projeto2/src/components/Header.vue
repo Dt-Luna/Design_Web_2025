@@ -9,8 +9,7 @@
             </RouterLink>
             <ul>
                 <li><RouterLink to="/quemsomos">Quem Somos</RouterLink></li>
-                <li><RouterLink to="/sejaumcolaborador">Seja um Colaborador</RouterLink></li>
-                <li><RouterLink to="/projetos">Projetos</RouterLink></li>
+                <li><RouterLink to="/inscreverprojeto">Projetos</RouterLink></li>
                 <li><RouterLink to="/guiaconsciente">Guia Consciente</RouterLink></li>
             </ul>
         </div>

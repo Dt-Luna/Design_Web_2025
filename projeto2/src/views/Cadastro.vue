@@ -1,208 +1,105 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue'
 
-interface Projeto {
+interface Voluntario {
   id: string
-  nome: string
-  descricao: string
-  categoria: string
-  dataIniciao: string
-  dataConclusao: string
+  nomeCompleto: string
+  email: string
+  telefone: string
+  habilidades: string
+  disponibilidade: string
+  areaInteresse: string
+  motivacao: string
+  dataCadastro: string
 }
 
-const nome = ref('')
-const descricao = ref('')
-const categoria = ref('')
-const dataInicio = ref('')
-const dataConclusao = ref('')
-const projetos = ref<Projeto[]>([])
-
-const STORAGE_KEY = 'projetos_cadastrados'
-
-// Carrega projetos do localStorage ao montar o componente
-onMounted(() => {
-  carregarProjetos()
-})
-
-// Carrega projetos do localStorage
-function carregarProjetos() {
-  const dados = localStorage.getItem(STORAGE_KEY)
-  if (dados) {
-    try {
-      projetos.value = JSON.parse(dados)
-    } catch (e) {
-      console.error('Erro ao carregar projetos:', e)
-      projetos.value = []
-    }
-  }
-}
-
-// Salva projetos no localStorage
-function salvarProjetos() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projetos.value))
-}
-
-// Adiciona novo projeto
-function adicionarProjeto() {
-  if (!nome.value || !descricao.value || !categoria.value) {
-    alert('Por favor preencha todos os campos obrigatórios')
-    return
-  }
-
-  const novoProjeto: Projeto = {
-    id: Date.now().toString(),
-    nome: nome.value,
-    descricao: descricao.value,
-    categoria: categoria.value,
-    dataIniciao: dataInicio.value,
-    dataConclusao: dataConclusao.value,
-  }
-
-  projetos.value.push(novoProjeto)
-  salvarProjetos()
-
-  // Limpa formulário
-  nome.value = ''
-  descricao.value = ''
-  categoria.value = ''
-  dataInicio.value = ''
-  dataConclusao.value = ''
-
-  console.log('Projeto adicionado com sucesso!')
-}
-
-// Remove projeto
-function removerProjeto(id: string) {
-  projetos.value = projetos.value.filter((p) => p.id !== id)
-  salvarProjetos()
-}
-
-// Conta projetos por categoria
-const projetosPorCategoria = computed(() => {
-  const categorias: { [key: string]: number } = {}
-  projetos.value.forEach((p) => {
-    categorias[p.categoria] = (categorias[p.categoria] || 0) + 1
-  })
-  return categorias
-})
+const nomeCompleto = ref('')
+const email = ref('')
+const telefone = ref('')
+const habilidades = ref('')
+const disponibilidade = ref('')
+const areaInteresse = ref('')
+const motivacao = ref('')
+const voluntarios = ref<Voluntario[]>([])
 </script>
 
 <template>
   <div class="page">
-    <headerAdm />
+    <header>
+      <Header />
+    </header>
+
 
     <main class="main-content">
-      <h1>Adicionar Projeto</h1>
+      <h1>Voluntariado</h1>
 
-      <!-- Formulário -->
       <section class="form-section">
-        <h2>Novo Projeto</h2>
+        <h2>Cadastro de Voluntário</h2>
+        <p class="form-subtitle">Junte-se a nós e faça a diferença na comunidade</p>
 
         <div class="form-group">
-          <label for="nome">Nome do Projeto *</label>
-          <input 
-            id="nome"
-            v-model="nome" 
-            type="text" 
-            placeholder="Digite o nome do projeto"
-          />
+          <label for="nomeCompleto">Nome Completo *</label>
+          <input id="nomeCompleto" v-model="nomeCompleto" type="text" placeholder="Digite seu nome completo" />
         </div>
 
-        <div class="form-group">
-          <label for="descricao">Descrição *</label>
-          <textarea 
-            id="descricao"
-            v-model="descricao" 
-            placeholder="Digite a descrição do projeto"
-            rows="4"
-          ></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="categoria">Categoria *</label>
-          <select id="categoria" v-model="categoria">
-            <option value="">Selecione uma categoria</option>
-            <option value="Educação">Educação</option>
-            <option value="Meio Ambiente">Meio Ambiente</option>
-            <option value="Saúde">Saúde</option>
-            <option value="Tecnologia">Tecnologia</option>
-            <option value="Social">Social</option>
-            <option value="Outros">Outros</option>
-          </select>
-        </div>
-
-        <div class="datas-in-row">
+        <div class="form-row">
           <div class="form-group">
-            <label for="dataInicio">Data de Início</label>
-            <input 
-              id="dataInicio"
-              v-model="dataInicio" 
-              type="date"
-            />
+            <label for="email">Email *</label>
+            <input id="email" v-model="email" type="email" placeholder="seu.email@exemplo.com" />
           </div>
 
           <div class="form-group">
-            <label for="dataConclusao">Data de Conclusão</label>
-            <input 
-              id="dataConclusao"
-              v-model="dataConclusao" 
-              type="date"
-            />
+            <label for="telefone">Telefone *</label>
+            <input id="telefone" v-model="telefone" type="tel" placeholder="(84) 99999-9999" />
           </div>
+        </div>
+
+        <div class="form-group">
+          <label for="habilidades">Habilidades e Competências *</label>
+          <textarea id="habilidades" v-model="habilidades" placeholder="Descreva suas habilidades e competências"
+            rows="3"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="disponibilidade">Disponibilidade de Tempo *</label>
+            <select id="disponibilidade" v-model="disponibilidade">
+              <option value="">Selecione sua disponibilidade</option>
+              <option value="Fins de semana">Fins de semana</option>
+              <option value="Dias de semana">Dias de semana</option>
+              <option value="Disponibilidade flexível">Disponibilidade flexível</option>
+              <option value="Poucas horas por semana">Poucas horas por semana</option>
+              <option value="Período integral">Período integral</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="areaInteresse">Área de Interesse *</label>
+            <select id="areaInteresse" v-model="areaInteresse">
+              <option value="">Selecione uma área</option>
+              <option value="Educação">Educação</option>
+              <option value="Meio Ambiente">Meio Ambiente</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Tecnologia">Tecnologia</option>
+              <option value="Social">Social</option>
+              <option value="Outras">Outras</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="motivacao">Por que deseja ser voluntário?</label>
+          <textarea id="motivacao" v-model="motivacao" placeholder="Conte-nos sua motivação para voluntariar"
+            rows="3"></textarea>
         </div>
 
         <div class="submit-container">
-          <button class="submit-btn" @click="adicionarProjeto">
-            Adicionar Projeto
+          <button class="submit-btn">
+            Cadastrar como Voluntário
           </button>
         </div>
-      </section>
-
-      <!-- Estatísticas -->
-      <section v-if="projetos.length > 0" class="stats-section">
-        <h2>Estatísticas</h2>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-number">{{ projetos.length }}</span>
-            <span class="stat-label">Projetos Cadastrados</span>
-          </div>
-          <div v-for="(count, categoria) in projetosPorCategoria" :key="categoria" class="stat-card">
-            <span class="stat-number">{{ count }}</span>
-            <span class="stat-label">{{ categoria }}</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Lista de Projetos -->
-      <section v-if="projetos.length > 0" class="projetos-section">
-        <h2>Projetos Cadastrados</h2>
-        <div class="projetos-grid">
-          <div v-for="projeto in projetos" :key="projeto.id" class="projeto-card">
-            <div class="projeto-header">
-              <h3>{{ projeto.nome }}</h3>
-              <span class="categoria-badge">{{ projeto.categoria }}</span>
-            </div>
-            <p class="projeto-descricao">{{ projeto.descricao }}</p>
-            <div class="projeto-datas">
-              <span v-if="projeto.dataIniciao" class="data">
-                📅 Início: {{ projeto.dataIniciao }}
-              </span>
-              <span v-if="projeto.dataConclusao" class="data">
-                📅 Conclusão: {{ projeto.dataConclusao }}
-              </span>
-            </div>
-            <button class="remove-btn" @click="removerProjeto(projeto.id)">
-              Remover
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Mensagem vazia -->
-      <section v-else class="empty-state">
-        <p>Nenhum projeto cadastrado ainda.</p>
-        <p>Adicione um novo projeto usando o formulário acima!</p>
       </section>
     </main>
 
@@ -212,7 +109,6 @@ const projetosPorCategoria = computed(() => {
 
 <style scoped>
 .page {
-  background: #f4f4f4;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -221,133 +117,166 @@ const projetosPorCategoria = computed(() => {
 .main-content {
   max-width: 1440px;
   width: 100%;
-  margin: 20px auto;
-  padding: 0 20px;
+  margin: 40px auto;
+  padding: 0 100px;
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
 h1 {
-  color: #0a4635;
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 .form-section {
   width: 100%;
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #0002;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(10, 71, 46, 0.08);
 }
 
-.form-section h2,
-.stats-section h2,
-.projetos-section h2 {
-  margin-bottom: 20px;
-  color: #1b473a;
+.form-section h2 {
+  margin-bottom: 8px;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+  font-style: italic;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
 }
 
 .form-group label {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 600;
-  color: #1b473a;
+  color: var(--primary-color);
+  font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-  padding: 10px;
+  padding: 12px 14px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid #e0e0e0;
   font-family: inherit;
   font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
 }
 
 .form-group textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 90px;
 }
 
 .form-group select {
   cursor: pointer;
-  background-color: white;
+}
+
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+  border-color: var(--primary-color);
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #0a8f5a;
-  box-shadow: 0 0 0 3px rgba(10, 143, 90, 0.1);
-}
-
-.datas-in-row {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.datas-in-row .form-group {
-  flex: 1;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(10, 71, 46, 0.1);
 }
 
 .submit-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .submit-btn {
-  background: #08472e;
-  color: white;
-  padding: 12px 30px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a5f7a 100%);
+  color: var(--accent-color);
+  padding: 14px 32px;
+  border-radius: 8px;
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .submit-btn:hover {
-  background: #06351f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(8, 71, 46, 0.3);
+  box-shadow: 0 8px 16px rgba(10, 71, 46, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
 }
 
 /* Estatísticas */
 .stats-section {
   width: 100%;
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #0002;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(10, 71, 46, 0.08);
+}
+
+.stats-section h2 {
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-size: 1.8rem;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  gap: 20px;
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #0a8f5a 0%, #066245 100%);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a5f7a 100%);
+  color: var(--accent-color);
+  padding: 24px;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(10, 143, 90, 0.2);
+  box-shadow: 0 4px 12px rgba(10, 71, 46, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
 }
 
 .stat-number {
   display: block;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 8px;
 }
@@ -355,259 +284,306 @@ h1 {
 .stat-label {
   display: block;
   font-size: 0.9rem;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* Projetos */
-.projetos-section {
+/* Voluntários */
+.voluntarios-section {
   width: 100%;
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #0002;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(10, 71, 46, 0.08);
 }
 
-.projetos-grid {
+.voluntarios-section h2 {
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+}
+
+.voluntarios-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
 }
 
-.projeto-card {
-  background: linear-gradient(to bottom, #f9f9f9, #ffffff);
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+.voluntario-card {
+  background: linear-gradient(to bottom, #f9fdfb, #ffffff);
+  border: 2px solid #e8f4f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
 
-.projeto-card:hover {
-  box-shadow: 0 4px 16px rgba(10, 143, 90, 0.15);
+.voluntario-card:hover {
+  box-shadow: 0 8px 20px rgba(10, 71, 46, 0.15);
   transform: translateY(-4px);
+  border-color: var(--primary-color);
 }
 
-.projeto-header {
+.voluntario-header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
-  margin-bottom: 12px;
-  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
 }
 
-.projeto-card h3 {
-  color: #1b473a;
+.voluntario-card h3 {
+  color: var(--primary-color);
   margin: 0;
   flex: 1;
+  font-size: 1.2rem;
 }
 
-.categoria-badge {
-  background: #c8f5de;
-  color: #0a8f5a;
-  padding: 4px 12px;
+.area-badge {
+  background: linear-gradient(135deg, var(--primary-color), #1a5f7a);
+  color: var(--accent-color);
+  padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
-.projeto-descricao {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.5;
+.voluntario-info {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 12px 0;
   margin: 12px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-.projeto-datas {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 15px 0;
+.voluntario-info p {
+  margin: 8px 0;
   font-size: 0.9rem;
   color: #555;
 }
 
-.projeto-datas .data {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.voluntario-details {
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+
+.voluntario-details p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.voluntario-details p strong {
+  color: var(--primary-color);
+}
+
+.detail-text {
+  margin-left: 8px;
+  color: #777;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.cadastro-data {
+  font-size: 0.8rem;
+  color: #999 !important;
+  margin-top: 12px !important;
+  text-align: right;
 }
 
 .remove-btn {
   width: 100%;
-  background: #ffe5e5;
-  border: 1px solid #ffb3b3;
-  color: #a00;
-  padding: 8px 12px;
-  border-radius: 6px;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border: 2px solid #fca5a5;
+  color: #991b1b;
+  padding: 10px 12px;
+  border-radius: 8px;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
   font-weight: 600;
 }
 
 .remove-btn:hover {
-  background: #ffd2d2;
-  color: #700;
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+  color: #7f1d1d;
+  transform: translateY(-2px);
 }
 
 /* Estado Vazio */
 .empty-state {
   width: 100%;
   background: white;
-  padding: 60px 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #0002;
+  padding: 80px 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(10, 71, 46, 0.08);
   text-align: center;
   color: #999;
 }
 
 .empty-state p {
   font-size: 1.1rem;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .empty-state p:first-child {
-  color: #666;
+  color: var(--primary-color);
   font-weight: 600;
+  font-size: 1.3rem;
 }
 
 footer {
-  background-color: #02402e;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
   font-size: 14px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.footer-content {
-  max-width: 1440px;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 40px 20px 30px;
-  gap: 20px;
-}
-
-.footer-left {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 10px 4px;
-}
-
-.footer-logo {
-  width: 220px;
-}
-
-.logo-if {
-  width: 220px;
-}
-
-.footer-right {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  gap: 6px;
-}
-
-.footer-right p {
-  margin: 10px 4px;
-  font-size: 20px;
-}
-
-.social {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-bottom: 8px;
-}
-
-.social img {
-  width: 38px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.social img:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
-
-.copy {
-  text-align: center;
-  font-size: 12px;
-  padding: 15px 20px;
-  background-color: #012118;
-  width: 100%;
-  opacity: 0.85;
-}
-
-fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-legend {
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: #1b473a;
+  margin-top: auto;
 }
 
 /* Space before footer */
 main section:last-child {
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
-@media screen and (max-width: 750px) {
-  .datas-in-row {
-    flex-direction: column;
-    gap: 10px;
+@media screen and (max-width: 1024px) {
+  .main-content {
+    padding: 0 60px;
+  }
+
+  .form-section {
+    padding: 30px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .voluntarios-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    padding: 0 40px;
+    margin: 30px auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .form-section {
+    padding: 25px;
+  }
+
+  .form-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .voluntarios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .voluntario-card {
+    padding: 18px;
+  }
+
+  .voluntario-details p strong {
+    display: block;
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding: 0 20px;
+    margin: 20px auto;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .form-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .stats-section h2,
+  .voluntarios-section h2 {
+    font-size: 1.3rem;
   }
 
   .stats-grid {
     grid-template-columns: 1fr;
   }
 
-  .projetos-grid {
-    grid-template-columns: 1fr;
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  .voluntario-card {
+    padding: 16px;
+  }
+
+  .voluntario-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .voluntario-info p {
+    font-size: 0.85rem;
+  }
+
+  .empty-state {
+    padding: 60px 20px;
+  }
+
+  .empty-state p {
+    font-size: 1rem;
   }
 
   header ul {
     display: none;
-  }
-
-  .main-header {
-    min-height: 60px;
-    max-height: 60px;
-  }
-
-  .header-container {
-    padding: 0;
-  }
-
-  .header-logo-container {
-    position: static;
-    transform: none;
-    justify-content: left;
-    padding: 10px 8px;
-  }
-
-  .header-logo {
-    top: 50px;
-    left: 10px;
-    width: 50%;
-    max-width: 80px;
   }
 }
 </style>

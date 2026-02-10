@@ -37,6 +37,11 @@ const router = createRouter({
       path: '/guiaconsciente',
       name: 'guiaconsciente',
       component: () => import('../views/GuiaConsciente.vue'),
+    },
+    {
+      path: '/inscreverprojeto',
+      name: 'inscreverprojeto',
+      component: () => import('../views/ListaProjetos.vue'),
     }
   ],
 })

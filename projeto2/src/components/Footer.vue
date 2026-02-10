@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import XImg from '@/assets/imagens/twitter.png'
-import instagramImg from '@/assets/imagens/instagram.png'
+import instagramImg from '@/assets/imagens/instagram-logo.png'
 import youtubeImg from '@/assets/imagens/youtube.png'
 </script>
 <template>
@@ -17,10 +17,6 @@ import youtubeImg from '@/assets/imagens/youtube.png'
                     <img :src="youtubeImg" alt="YouTube" />
                 </a>
             </div>
-            <address>
-                Av. Sen. Salgado Filho, 1559 – Tirol, Natal – RN<br />
-                <strong>CEP:</strong> 59015-000
-            </address>
         </div>
     </footer>
 </template>
@@ -53,8 +49,7 @@ footer {
 
 .social {
     display: flex;
-    gap: 10px;
-    justify-content: flex-end;
+    gap: 50px;
     margin-bottom: 8px;
 }
 
@@ -62,7 +57,6 @@ footer {
     width: 38px;
     cursor: pointer;
     transition: 0.2s;
-    border: 1px solid black;
 }
 
 .social img:hover {
@@ -72,81 +66,5 @@ footer {
 
 main section:last-child {
     margin-bottom: 6rem;
-}
-
-@media (max-width: 768px) {
-    footer {
-        min-height: auto;
-        margin-top: 4rem;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 30px 50px;
-    }
-
-    .footer-left {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        margin: 0;
-    }
-
-    .footer-logo,
-    .logo-if {
-        width: 160px;
-    }
-
-    .footer-right {
-        align-items: center;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .footer-right p {
-        font-size: 16px;
-        margin: 6px 0;
-    }
-
-    address {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .social {
-        justify-content: center;
-        margin-bottom: 12px;
-    }
-
-    .social img {
-        width: 34px;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer-content {
-        padding: 20px;
-    }
-
-    .footer-logo,
-    .logo-if {
-        width: 130px;
-    }
-
-    .footer-right p {
-        font-size: 15px;
-    }
-
-    .copy {
-        font-size: 11px;
-        padding: 12px;
-    }
-
-    address {
-        font-size: 13px;
-    }
 }
 </style>

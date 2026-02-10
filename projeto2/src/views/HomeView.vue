@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
-import TheWelcome from '../components/TheWelcome.vue'
 import CardDestinos from '@/components/CardDestinos.vue';
 import Carrossel from '@/components/Carrossel.vue'
 import Footer from '@/components/Footer.vue';
-// import { C } from 'vue-router/dist/options-CjwwR_07.cjs';
+
+// Importar imagens
+import destino1 from '@/assets/imagens/destino1.png'
+import torres from '@/assets/imagens/torres_del_paine.jpg'
+import pascoa from '@/assets/imagens/ilha_de_pascoa.jpg'
+import salar from '@/assets/imagens/salar_de_uyuni.jpg'
+import cataratas from '@/assets/imagens/cataratas_do_iguacu.jpg'
+
 const destinos = [
   {
     nome: 'Machu Picchu',
@@ -12,7 +18,7 @@ const destinos = [
     descricao: 'A antiga cidade inca nas montanhas dos Andes.',
     difficulty: 'Alta',
     ecoStatus: 'Eco-friendly',
-    imagem: '@/assets/imagens/destino1.png',
+    imagem: destino1,
   },
   {
     nome: 'Parque Nacional Torres',
@@ -20,7 +26,7 @@ const destinos = [
     descricao: 'Paisagens deslumbrantes de montanhas, lagos e geleiras.',
     difficulty: 'Média',
     ecoStatus: 'Sustentável',
-    imagem: '@/assets/imagens/torres_del_paine.jpg',
+    imagem: destino1,
   },
   {
     nome: 'Ilha de Páscoa',
@@ -28,7 +34,7 @@ const destinos = [
     descricao: 'Famosa por suas misteriosas estátuas moai.',
     difficulty: 'Baixa',
     ecoStatus: 'Eco-friendly',
-    imagem: '@/assets/imagens/ilha_de_pascoa.jpg',
+    imagem: destino1,
   },
   {
     nome: 'Salar de Uyuni',
@@ -36,7 +42,7 @@ const destinos = [
     descricao: 'O maior deserto de sal do mundo, com paisagens surrealistas.',
     difficulty: 'Média',
     ecoStatus: 'Sustentável',
-    imagem: '@/assets/imagens/salar_de_uyuni.jpg',
+    imagem: destino1,
   },
   {
     nome: 'Cataratas do Iguaçu',
@@ -44,7 +50,7 @@ const destinos = [
     descricao: 'Uma das maiores e mais impressionantes quedas d\'água do mundo.',
     difficulty: 'Baixa',
     ecoStatus: 'Eco-friendly',
-    imagem: '@/assets/imagens/cataratas_do_iguacu.jpg',
+    imagem: destino1,
   },
   {
     nome: 'Deserto do Atacama',
@@ -52,7 +58,7 @@ const destinos = [
     descricao: 'O deserto mais seco do mundo, com paisagens lunares.',
     difficulty: 'Média',
     ecoStatus: 'Sustentável',
-    imagem: '@/assets/imagens/deserto_do_atacama.jpg',
+    imagem: destino1,
   }
 ]
 </script>
@@ -97,7 +103,9 @@ const destinos = [
               <h3>Junte-se a nós!</h3>
               <p>Estamos sempre em busca de novos talentos para nossa equipe. Se você é apaixonado por viagens e
                 tecnologia, entre em contato conosco!</p>
-              <button class="join-button">Entre em Contato</button>
+              <button class="join-button">
+                <RouterLink to="/cadastro">Seja um Voluntário</RouterLink>
+              </button>
             </div>
           </div>
         </div>
@@ -130,7 +138,7 @@ section {
   box-sizing: border-box;
 }
 
-.container{
+.container {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -223,54 +231,8 @@ h3 {
   margin-bottom: 1rem;
 }
 
-@media (max-width: 992px) {
-  .container {
-    padding: 50px 50px;
-  }
-
-  .equipe-container {
-    flex-direction: column;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-@media (max-width: 768px) {
-  .container {
-    padding: 40px 30px;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
-  .equipe-membros {
-    justify-content: center;
-    gap: 3rem;
-  }
-
-  .equipe-CTA {
-    text-align: center;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 30px 20px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  .membro {
-    width: 120px;
-  }
-
-  .banner-image {
-    height: 300px;
-  }
-}</style>
+</style>
